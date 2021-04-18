@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
+
+import  java.lang.Exception;
 
 public class MoodAnalyseTest {
     @Test
@@ -21,9 +24,20 @@ public class MoodAnalyseTest {
     @Test
     public void givenMessage_WhenNull_shouldReturnHappy() {
         MoodAnalyser moodAnalyser = new MoodAnalyser(null);
-        String mood = moodAnalyser.analyseMood();
+        String mood = null;
+        try {
 
-        Assertions.assertEquals("HAPPY", mood);
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(MoodAnalysisException.class);
+          //  Assertions.assertThrows(MoodAnalysisException.class);
+            mood = moodAnalyser.analyseMoodAgain();
+            Assertions.assertEquals("HAPPY", mood);
+        } catch (MoodAnalysisException e) {
+            e.printStackTrace();
+        }
+
+
 
     }
+
 }
